@@ -137,7 +137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c52693d22c7b040bda0bf99f8609f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Brick
-  startHealth: 1
+  startHealth: 5
+  sprite: {fileID: 5025190308306498371}
+  colorStep: 0.2
 --- !u!61 &3895898560571515989
 BoxCollider2D:
   m_ObjectHideFlags: 0
