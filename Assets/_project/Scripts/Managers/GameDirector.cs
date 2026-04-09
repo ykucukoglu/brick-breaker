@@ -28,8 +28,6 @@ public class GameDirector : MonoBehaviour
 
     void RestartLevel()
     {
-        print("Restarting level...");
-
         levelManager.RestartLevelManager();
         brickManager.RestartBrickManager();
         player.RestartPlayer();

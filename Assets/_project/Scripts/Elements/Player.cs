@@ -12,4 +12,12 @@ public class Player : MonoBehaviour
         xPos = Mathf.Clamp(xPos, -2f, 2f);
         transform.position = new Vector3(xPos, transform.position.y, 0);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            print("xxxxx");
+        }
+    }
 }

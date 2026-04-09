@@ -4,6 +4,6 @@ public class BrickManager : MonoBehaviour
 {
   public void RestartBrickManager()
   {
-      print("in restart brick manager...");
+      //print("in restart brick manager...");
   }
 }
