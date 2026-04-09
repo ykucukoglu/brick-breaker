@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
+    private Level _level;
     public int startHealth;
     private int _currentHealth;
     private Color _stepValue;
     public SpriteRenderer sprite;
     public float colorStep;
-    private void Start()
+
+    public void StartBrick(Level level)
     {
+        _level = level;
         _currentHealth = startHealth;
         var greenandblueValue = 1 - _currentHealth * colorStep;
         sprite.color = new Color(1, greenandblueValue, greenandblueValue, 1);
@@ -39,4 +42,6 @@ public class Brick : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+
 }

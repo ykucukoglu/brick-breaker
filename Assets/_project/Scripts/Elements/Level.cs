@@ -1,16 +1,20 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private List<Brick> _bricks;
+    private LevelManager _levelManager;
+    public void StartLevel(LevelManager levelManager)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _levelManager = levelManager;
+        _bricks = GetComponentsInChildren<Brick>().ToList();
+        foreach(var brick in _bricks)
+        {
+            brick.StartBrick(this);
+        }
     }
 }
+

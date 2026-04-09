@@ -38,6 +38,7 @@ public class LevelManager : MonoBehaviour
         var normalizedLevelNo = (currentLevelNo - 1) % levels.Count;
         _currentLevel = Instantiate(levels[normalizedLevelNo]);
         _currentLevel.transform.position = Vector3.zero;
+        _currentLevel.StartLevel(this);
     }
 
     private void DeletePreviousLevel()
