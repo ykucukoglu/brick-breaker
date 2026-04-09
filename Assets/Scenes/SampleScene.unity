@@ -533,6 +533,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd0313a4c941dd43bd0a3898d1474a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
+  levels:
+  - {fileID: -1886482428276099743, guid: e23e1e79a8b1d3e4ab0fa4b515c7c0ff, type: 3}
+  - {fileID: -1886482428276099743, guid: e1e95bb8abcc9af46b4902eec566c8d9, type: 3}
+  - {fileID: -1886482428276099743, guid: 7f6a17c51ae0bd7439fc7789c22c20e0, type: 3}
+  currentLevelNo: 1
 --- !u!1 &1398437277
 GameObject:
   m_ObjectHideFlags: 0

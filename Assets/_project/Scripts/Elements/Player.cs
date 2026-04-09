@@ -4,7 +4,7 @@ public class Player : MonoBehaviour
 {
     public void RestartPlayer()
     {
-        print("in restart player...");
+        transform.position = new Vector3(0, transform.position.y, 0);
     }
 
     public void MovePlayer(float xPos)
