@@ -1,16 +1,24 @@
+using System;
 using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public int startHealth;
+    private int _currentHealth;
+
+    private void Start()
     {
-        
+        _currentHealth = startHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GetHit()
     {
-        
+        _currentHealth--;
+        if (_currentHealth <= 0) DestroyBrick();
+    }
+
+    private void DestroyBrick()
+    {
+        gameObject.SetActive(false);
     }
 }

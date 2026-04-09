@@ -20,7 +20,11 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall")) Bounce(collision.contacts[0].normal);
-        if (collision.gameObject.CompareTag("Brick")) Bounce(collision.contacts[0].normal);
+        if (collision.gameObject.CompareTag("Brick"))
+        {
+            Bounce(collision.contacts[0].normal);
+            collision.gameObject.GetComponent<Brick>().GetHit();
+        }
         if (collision.gameObject.CompareTag("Player")) Bounce(collision.contacts[0].normal);
     }
 
