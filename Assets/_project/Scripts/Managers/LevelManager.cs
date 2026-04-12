@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public GameDirector gameDirector;
     public List<Level> levels;
     public Ball ballPrefab;
     public int currentLevelNo;
@@ -47,5 +48,16 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(_currentLevel.gameObject);
         }
+    }
+
+    public void LevelCompleted()
+    {
+        _currentBall.SetBallDireciton(Vector3.zero);
+        gameDirector.Win();
+    }
+
+    public void SetBallDirection(Vector3 dir)
+    {
+        _currentBall.SetBallDireciton(dir);
     }
 }

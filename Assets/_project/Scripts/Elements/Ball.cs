@@ -11,6 +11,11 @@ public class Ball : MonoBehaviour
         _direction = dir;
     }
 
+    public void SetBallDireciton(Vector3 dir)
+    {
+        _direction = dir;
+    }
+
     private void FixedUpdate()
     {
         transform.position += _direction.normalized * speed * Time.fixedDeltaTime;

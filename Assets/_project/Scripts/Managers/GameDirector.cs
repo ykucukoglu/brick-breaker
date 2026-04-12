@@ -32,4 +32,16 @@ public class GameDirector : MonoBehaviour
         brickManager.RestartBrickManager();
         player.RestartPlayer();
     }
+
+    public void Win()
+    {
+
+        Invoke(nameof(LoadNextLevel), 1f);
+    }
+
+    public void Lose()
+    {
+        levelManager.SetBallDirection(Vector3.zero);
+        Invoke(nameof(RestartLevel), 1f);
+    }
 }

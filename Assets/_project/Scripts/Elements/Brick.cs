@@ -41,7 +41,12 @@ public class Brick : MonoBehaviour
     private void DestroyBrick()
     {
         gameObject.SetActive(false);
+        _level.BrickDestroyed(this);
     }
 
-
+    private void OnDestroy()
+    {
+        sprite.transform.DOKill();
+        sprite.DOKill();
+    }
 }
