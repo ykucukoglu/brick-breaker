@@ -4,7 +4,6 @@ using UnityEngine;
 public class GameDirector : MonoBehaviour
 {
     public LevelManager levelManager;
-    public BrickManager brickManager;
     public Player player;
     public UIManager uiManager;
 
@@ -34,8 +33,8 @@ public class GameDirector : MonoBehaviour
     public void RestartLevel()
     {
         levelManager.RestartLevelManager();
-        brickManager.RestartBrickManager();
         player.RestartPlayer();
+        uiManager.ShowInGameUI(levelManager.currentLevelNo);
     }
 
     public void Win()
