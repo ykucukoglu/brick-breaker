@@ -48,6 +48,7 @@ public class GameDirector : MonoBehaviour
     public void Lose()
     {
         levelManager.SetBallDirection(Vector3.zero);
-        Invoke(nameof(RestartLevel), 1f);
+        levelManager.HideBall();
+        uiManager.LevelFailed();
     }
 }
