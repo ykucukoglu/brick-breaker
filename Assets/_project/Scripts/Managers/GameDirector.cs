@@ -6,6 +6,7 @@ public class GameDirector : MonoBehaviour
     public LevelManager levelManager;
     public BrickManager brickManager;
     public Player player;
+    public UIManager uiManager;
 
     private void Update()
     {
@@ -14,6 +15,10 @@ public class GameDirector : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q)) LoadPreviousLevel();
     }
 
+    public void Start()
+    {
+        uiManager.ShowMainMenu();
+    }
     private void LoadNextLevel()
     {
         levelManager.currentLevelNo++;
@@ -26,7 +31,7 @@ public class GameDirector : MonoBehaviour
         RestartLevel();
     }
 
-    void RestartLevel()
+    public void RestartLevel()
     {
         levelManager.RestartLevelManager();
         brickManager.RestartBrickManager();
