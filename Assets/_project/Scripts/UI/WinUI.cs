@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour
+public class WinUI : MonoBehaviour
 {
     public UIManager uiManager;
     private CanvasGroup _canvasGroup;
@@ -10,21 +10,20 @@ public class MainMenu : MonoBehaviour
     {
         _canvasGroup = GetComponent<CanvasGroup>();
     }
-    public void Show()
+
+    public void Show(float delay)
     {
         gameObject.SetActive(true);
-        _canvasGroup.DOFade(1, .1f);
-
+        _canvasGroup.DOFade(1, .1f).SetDelay(delay);
     }
-
     public void Hide()
     {
         _canvasGroup.DOFade(0, .1f).OnComplete(() => gameObject.SetActive(false));
     }
 
-    public void PlayGameButtonPressed()
+    public void LoadNextLevelButtonPressed()
     {
-        uiManager.PlayGameButtonPressed();
+        uiManager.LoadNextLevelButtonPressed();
         Hide();
     }
 }

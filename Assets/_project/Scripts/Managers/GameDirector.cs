@@ -17,9 +17,9 @@ public class GameDirector : MonoBehaviour
 
     public void Start()
     {
-        uiManager.ShowMainMenu();
+        uiManager.GameStarted();
     }
-    private void LoadNextLevel()
+    public void LoadNextLevel()
     {
         levelManager.currentLevelNo++;
         RestartLevel();
@@ -40,8 +40,9 @@ public class GameDirector : MonoBehaviour
 
     public void Win()
     {
-
-        Invoke(nameof(LoadNextLevel), 1f);
+        levelManager.SetBallDirection(Vector3.zero);
+        levelManager.HideBall();
+        uiManager.LevelCompleted();
     }
 
     public void Lose()

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,5 +60,10 @@ public class LevelManager : MonoBehaviour
     public void SetBallDirection(Vector3 dir)
     {
         _currentBall.SetBallDireciton(dir);
+    }
+
+    public void HideBall()
+    {
+        _currentBall.transform.DOScale(0, .2f).SetEase(Ease.InBack);
     }
 }
