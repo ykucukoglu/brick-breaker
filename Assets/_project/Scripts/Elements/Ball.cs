@@ -5,9 +5,12 @@ public class Ball : MonoBehaviour
 {
     public float speed;
     private Vector3 _direction;
-
-    public void StartBall(Vector3 dir)
+    private LevelManager _levelManager;
+    private FXManager _fxManager;
+    public void StartBall(LevelManager levelManager, Vector3 dir)
     {
+        _levelManager = levelManager;
+        _fxManager = _levelManager.gameDirector.fxManager;
         _direction = dir;
     }
 
@@ -24,17 +27,18 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall")) Bounce(collision.contacts[0].normal);
+        if (collision.gameObject.CompareTag("Wall")) Bounce(collision.contacts[0].normal, collision.contacts[0].point);
         if (collision.gameObject.CompareTag("Brick"))
         {
-            Bounce(collision.contacts[0].normal);
+            Bounce(collision.contacts[0].normal, collision.contacts[0].point);
             collision.gameObject.GetComponent<Brick>().GetHit();
         }
-        if (collision.gameObject.CompareTag("Player")) Bounce(collision.contacts[0].normal);
+        if (collision.gameObject.CompareTag("Player")) Bounce(collision.contacts[0].normal, collision.contacts[0].point);
     }
 
-    void Bounce(Vector3 n)
+    void Bounce(Vector3 n, Vector3 contactPos)
     {
         _direction = Vector3.Reflect(_direction, n);
+        _fxManager.PlayBallImpactPS(contactPos, n);
     }
 }

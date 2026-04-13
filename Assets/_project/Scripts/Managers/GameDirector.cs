@@ -6,7 +6,7 @@ public class GameDirector : MonoBehaviour
     public LevelManager levelManager;
     public Player player;
     public UIManager uiManager;
-
+    public FXManager fxManager;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) RestartLevel();

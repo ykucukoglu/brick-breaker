@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour
     {
         _currentBall = Instantiate(ballPrefab);
         _currentBall.transform.position = new Vector3(0, -3f, 0);
-        _currentBall.StartBall(new Vector3(Random.Range(-1f, 1f), 1, 0));
+        _currentBall.StartBall(this, new Vector3(Random.Range(-1f, 1f), 1, 0));
     }
 
     private void DeletePreviousBall()
