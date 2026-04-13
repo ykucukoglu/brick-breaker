@@ -7,6 +7,7 @@ public class GameDirector : MonoBehaviour
     public Player player;
     public UIManager uiManager;
     public FXManager fxManager;
+    public AudioManager audioManager;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) RestartLevel();
@@ -46,6 +47,7 @@ public class GameDirector : MonoBehaviour
 
     public void Lose()
     {
+        audioManager.PlayFailAS();
         levelManager.SetBallDirection(Vector3.zero);
         levelManager.HideBall();
         uiManager.LevelFailed();

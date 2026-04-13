@@ -10,13 +10,15 @@ public class Brick : MonoBehaviour
     private Color _stepValue;
     public SpriteRenderer sprite;
     public float colorStep;
+    private AudioManager _audioManager;
 
-    public void StartBrick(Level level)
+    public void StartBrick(Level level, LevelManager levelManager)
     {
         _level = level;
         _currentHealth = startHealth;
         var greenandblueValue = 1 - _currentHealth * colorStep;
         sprite.color = new Color(1, greenandblueValue, greenandblueValue, 1);
+        _audioManager = levelManager.gameDirector.audioManager;
     }
 
     public void GetHit()
@@ -42,6 +44,7 @@ public class Brick : MonoBehaviour
     {
         gameObject.SetActive(false);
         _level.BrickDestroyed(this);
+        _audioManager.PlayExplodeAS();
     }
 
     private void OnDestroy()

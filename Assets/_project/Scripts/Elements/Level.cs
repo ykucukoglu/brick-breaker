@@ -16,7 +16,7 @@ public class Level : MonoBehaviour
         _bricks = GetComponentsInChildren<Brick>().ToList();
         foreach(var brick in _bricks)
         {
-            brick.StartBrick(this);
+            brick.StartBrick(this, _levelManager);
         }
     }
 
