@@ -4,6 +4,7 @@ public class FXManager : MonoBehaviour
 {
     public ParticleSystem brickDestroyPS;
     public ParticleSystem ballImpactPS;
+    public ParticleSystem coinCollectPS;
     public void PlayBrickDestroyedParticles(Vector3 position)
     {
         var newPS = Instantiate(brickDestroyPS);
@@ -16,6 +17,13 @@ public class FXManager : MonoBehaviour
         var newPS = Instantiate(ballImpactPS);
         newPS.transform.position = pos;
         newPS.transform.LookAt(pos + dir);
+        newPS.Play();
+    }
+
+    public void PlayCoinCollectPS(Vector3 pos)
+    {
+        var newPS = Instantiate(coinCollectPS);
+        newPS.transform.position = pos;
         newPS.Play();
     }
 }

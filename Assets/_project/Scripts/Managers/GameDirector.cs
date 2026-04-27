@@ -8,6 +8,7 @@ public class GameDirector : MonoBehaviour
     public UIManager uiManager;
     public FXManager fxManager;
     public AudioManager audioManager;
+    public CoinManager coinManager;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) RestartLevel();
@@ -18,6 +19,13 @@ public class GameDirector : MonoBehaviour
     public void Start()
     {
         uiManager.GameStarted();
+        LoadPersistanceData();
+    }
+
+    private void LoadPersistanceData()
+    {
+        levelManager.currentLevelNo = Math.Max(PlayerPrefs.GetInt("LevelNo"), 1);
+        coinManager.cointCount = PlayerPrefs.GetInt("CoinCount");
     }
     public void LoadNextLevel()
     {
@@ -36,13 +44,16 @@ public class GameDirector : MonoBehaviour
         levelManager.RestartLevelManager();
         player.RestartPlayer();
         uiManager.ShowInGameUI(levelManager.currentLevelNo);
+        coinManager.StartCoinSpawnCoroutine();
     }
 
     public void Win()
     {
+        PlayerPrefs.SetInt("LevelNo", levelManager.currentLevelNo + 1);
         levelManager.SetBallDirection(Vector3.zero);
         levelManager.HideBall();
         uiManager.LevelCompleted();
+        coinManager.StopCoinSpawnCoroutine();
     }
 
     public void Lose()
@@ -51,5 +62,6 @@ public class GameDirector : MonoBehaviour
         levelManager.SetBallDirection(Vector3.zero);
         levelManager.HideBall();
         uiManager.LevelFailed();
+        coinManager.StopCoinSpawnCoroutine();
     }
 }

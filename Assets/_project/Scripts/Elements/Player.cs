@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public CoinManager coinManager;
     public void RestartPlayer()
     {
         transform.position = new Vector3(0, transform.position.y, 0);
@@ -13,11 +15,9 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(xPos, transform.position.y, 0);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    public void CoinCollected(Vector3 pos)
     {
-        if (collision.gameObject.CompareTag("Ball"))
-        {
-            print("xxxxx");
-        }
+        coinManager.CoinCollected(pos);
     }
 }

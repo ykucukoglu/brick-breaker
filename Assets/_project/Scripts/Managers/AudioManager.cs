@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource explodeAS;
     public AudioSource positiveAS;
     public AudioSource failAS;
+    public AudioSource coinCollectAS;
 
     public void PlayImpactAS()
     {
@@ -25,5 +26,10 @@ public class AudioManager : MonoBehaviour
     public void PlayFailAS()
     {
         failAS.Play();
+    }
+
+    public void PlayCoinCollectAS()
+    {
+        coinCollectAS.Play();
     }
 }

@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     public LoseUI loseUI;
 
     public LevelUI levelUI;
-
+    public CoinUI coinUI;
     public void GameStarted()
     {
         mainMenu.Show();
@@ -21,11 +21,14 @@ public class UIManager : MonoBehaviour
     public void ShowInGameUI(int levelNo)
     {
         levelUI.Show(levelNo);
+        coinUI.Show();
+        coinUI.UpdateCoinCount(gameDirector.coinManager.cointCount);
     }
 
     public void HideInGameUI()
     {
         levelUI.Hide();
+        coinUI.Hide();
     }
 
     public void PlayGameButtonPressed()
