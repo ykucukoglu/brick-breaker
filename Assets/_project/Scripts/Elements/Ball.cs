@@ -14,6 +14,7 @@ public class Ball : MonoBehaviour
         _fxManager = _levelManager.gameDirector.fxManager;
         _audioManager = _levelManager.gameDirector.audioManager;
         _direction = dir;
+        if (_levelManager.currentLevelNo > 35) speed++;
     }
 
     public void SetBallDireciton(Vector3 dir)

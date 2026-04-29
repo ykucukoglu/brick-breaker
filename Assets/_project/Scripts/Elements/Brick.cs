@@ -14,6 +14,9 @@ public class Brick : MonoBehaviour
 
     public void StartBrick(Level level, LevelManager levelManager)
     {
+        if (levelManager.currentLevelNo > 20 && levelManager.currentLevelNo < 31) startHealth += 1;
+        else if (levelManager.currentLevelNo > 30) startHealth += 2;
+
         _level = level;
         _currentHealth = startHealth;
         var greenandblueValue = 1 - _currentHealth * colorStep;

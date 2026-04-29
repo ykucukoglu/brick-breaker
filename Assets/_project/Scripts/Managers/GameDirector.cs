@@ -41,6 +41,7 @@ public class GameDirector : MonoBehaviour
 
     public void RestartLevel()
     {
+        coinManager.StopCoinSpawnCoroutine();
         levelManager.RestartLevelManager();
         player.RestartPlayer();
         uiManager.ShowInGameUI(levelManager.currentLevelNo);
