@@ -50,4 +50,11 @@ public class CoinManager : MonoBehaviour
         PlayerPrefs.SetInt("CoinCount", cointCount);
         fxManager.PlayCoinCollectPS(pos);
     }
+
+    public void SpendCoins(int spendAmount)
+    {
+        cointCount -= spendAmount;
+        coinUI.UpdateCoinCount(cointCount);
+        PlayerPrefs.SetInt("CoinCount", cointCount);
+    }
 }

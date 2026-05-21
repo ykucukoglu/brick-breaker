@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameDirector : MonoBehaviour
 {
     public LevelManager levelManager;
+    public IncrementalManager incrementalManager;
     public Player player;
     public UIManager uiManager;
     public FXManager fxManager;
@@ -18,14 +19,15 @@ public class GameDirector : MonoBehaviour
 
     public void Start()
     {
-        uiManager.GameStarted();
         LoadPersistanceData();
+        uiManager.GameStarted();
     }
 
     private void LoadPersistanceData()
     {
         levelManager.currentLevelNo = Math.Max(PlayerPrefs.GetInt("LevelNo"), 1);
         coinManager.cointCount = PlayerPrefs.GetInt("CoinCount");
+        incrementalManager.LoadPersistanceData();
     }
     public void LoadNextLevel()
     {

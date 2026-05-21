@@ -11,6 +11,7 @@ public class Brick : MonoBehaviour
     public SpriteRenderer sprite;
     public float colorStep;
     private AudioManager _audioManager;
+    private IncrementalManager _incrementalManager;
 
     public void StartBrick(Level level, LevelManager levelManager)
     {
@@ -19,6 +20,7 @@ public class Brick : MonoBehaviour
 
         _level = level;
         _currentHealth = startHealth;
+        _incrementalManager = levelManager.gameDirector.incrementalManager;
         var greenandblueValue = 1 - _currentHealth * colorStep;
         sprite.color = new Color(1, greenandblueValue, greenandblueValue, 1);
         _audioManager = levelManager.gameDirector.audioManager;
@@ -26,7 +28,8 @@ public class Brick : MonoBehaviour
 
     public void GetHit()
     {
-        _currentHealth--;
+        var totalDamage = 1 + _incrementalManager.GetDamageUpgradeCount();
+        _currentHealth -= totalDamage;
         var greenandblueValue = 1 - _currentHealth * colorStep;
 
         PlayVisualFX(greenandblueValue);
