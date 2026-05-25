@@ -8,8 +8,14 @@ public class Ball : MonoBehaviour
     private LevelManager _levelManager;
     private FXManager _fxManager;
     private AudioManager _audioManager;
+    private Rigidbody2D _rb;
 
     public float playerCollisionXOffetMulplier;
+
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+    }
     public void StartBall(LevelManager levelManager, Vector3 dir)
     {
         _levelManager = levelManager;
@@ -26,7 +32,8 @@ public class Ball : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position += _direction.normalized * speed * Time.fixedDeltaTime;
+        _rb.linearVelocity = _direction.normalized * speed;
+        //transform.position += _direction.normalized * speed * Time.fixedDeltaTime;
 
     }
 
@@ -46,14 +53,32 @@ public class Ball : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if ((collision.contacts[0].point.x < transform.position.x && _direction.x < 0)
+                || (collision.contacts[0].point.x > transform.position.x && _direction.x > 0))
+            {
+                _direction.x *= -1;
+            }
+        }
+
+        if ((collision.contacts[0].point.y < transform.position.y && _direction.y < 0)
+             || (collision.contacts[0].point.y > transform.position.y && _direction.y > 0))
+        {
+            _direction.y *= -1;
+        }
+    }
+
     void Bounce(Vector3 n, Vector3 contactPos, Color color, float offset = 0f)
     {
         var newDir = Vector3.Reflect(_direction, n);
         if (offset != 0) newDir.x = offset;
         _direction = newDir;
 
-        if (_direction.y < .15f && _direction.y > 0) _direction.y = .15f;
-        else if (_direction.y > -.15f && _direction.y < 0) _direction.y = -.15f;
+        if (_direction.y < .2f && _direction.y > 0) _direction.y = .2f;
+        else if (_direction.y > -.2f && _direction.y < 0) _direction.y = -.2f;
 
         _fxManager.PlayBallImpactPS(contactPos, n, color);
         _audioManager.PlayImpactAS();
