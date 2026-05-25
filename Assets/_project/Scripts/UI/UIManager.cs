@@ -7,11 +7,14 @@ public class UIManager : MonoBehaviour
     public MainMenu mainMenu;
     public WinUI winUI;
     public LoseUI loseUI;
+    public IncrementalUI incrementalUI;
 
     public LevelUI levelUI;
     public CoinUI coinUI;
     public void GameStarted()
     {
+        coinUI.UpdateCoinCount(gameDirector.coinManager.cointCount);
+        incrementalUI.Hide();
         mainMenu.Show();
         winUI.Hide();
         loseUI.Hide();
@@ -23,12 +26,12 @@ public class UIManager : MonoBehaviour
         levelUI.Show(levelNo);
         coinUI.Show();
         coinUI.UpdateCoinCount(gameDirector.coinManager.cointCount);
+        incrementalUI.Hide();
     }
 
     public void HideInGameUI()
     {
         levelUI.Hide();
-        coinUI.Hide();
     }
 
     public void PlayGameButtonPressed()
@@ -39,12 +42,14 @@ public class UIManager : MonoBehaviour
     public void LevelCompleted()
     {
         winUI.Show(.5f);
+        incrementalUI.Show(.5f);
         HideInGameUI();
     }
 
     public void LevelFailed()
     {
         loseUI.Show(.5f);
+        incrementalUI.Show(.5f);
         HideInGameUI();
     }
 
