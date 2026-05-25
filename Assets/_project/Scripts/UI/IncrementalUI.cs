@@ -44,6 +44,6 @@ public class IncrementalUI : MonoBehaviour
             damageUpgradeButton.interactable = false;
 
         damageCostTMP.text = cost.ToString();
-        curDamageLevelTMP.text = $"LEVEL {incrementalManager.GetDamageUpgradeCount().ToString()}";
+        curDamageLevelTMP.text = $"DAMAGE LEVEL {incrementalManager.GetDamageUpgradeCount().ToString()}";
     }
 }
