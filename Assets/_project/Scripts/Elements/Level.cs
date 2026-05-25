@@ -33,15 +33,15 @@ public class Level : MonoBehaviour
 
     private void GenerateAvailableTiles()
     {
-        var xStep = 1.5f;
-        var yStep = .6f;
+        var xStep = 1f;
+        var yStep = 1f;
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 5; i++)
         {
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < 5; j++)
             {
                 var newTile = Instantiate(tilePrefab, transform);
-                newTile.transform.localPosition = new Vector3(-1.5f + xStep * j, i * yStep, 0);
+                newTile.transform.localPosition = new Vector3(-2f + xStep * j, -.5f + i * yStep, 0);
                 _availabelTiles.Add(newTile);
             }
         }

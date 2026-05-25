@@ -12,11 +12,13 @@ public class FXManager : MonoBehaviour
         newPS.Play();
     }
 
-    public void PlayBallImpactPS(Vector3 pos, Vector3 dir)
+    public void PlayBallImpactPS(Vector3 pos, Vector3 dir, Color color)
     {
         var newPS = Instantiate(ballImpactPS);
         newPS.transform.position = pos;
         newPS.transform.LookAt(pos + dir);
+        var main = newPS.main;
+        main.startColor = color;
         newPS.Play();
     }
 

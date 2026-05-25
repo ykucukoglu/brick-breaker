@@ -1,5 +1,5 @@
 using DG.Tweening;
-using System;
+using TMPro;
 using UnityEngine;
 
 public class Brick : MonoBehaviour
@@ -12,18 +12,20 @@ public class Brick : MonoBehaviour
     public float colorStep;
     private AudioManager _audioManager;
     private IncrementalManager _incrementalManager;
+    public TextMeshPro healthTMP;
 
     public void StartBrick(Level level, LevelManager levelManager)
     {
-        if (levelManager.currentLevelNo > 20 && levelManager.currentLevelNo < 31) startHealth += 1;
-        else if (levelManager.currentLevelNo > 30) startHealth += 2;
+        startHealth = Random.Range(2, 6);
+        var bonusHealt = levelManager.currentLevelNo / 5;
+        startHealth += bonusHealt;
 
         _level = level;
         _currentHealth = startHealth;
         _incrementalManager = levelManager.gameDirector.incrementalManager;
         var greenandblueValue = 1 - _currentHealth * colorStep;
-        sprite.color = new Color(1, greenandblueValue, greenandblueValue, 1);
         _audioManager = levelManager.gameDirector.audioManager;
+        healthTMP.text = _currentHealth.ToString();
     }
 
     public void GetHit()
@@ -34,16 +36,19 @@ public class Brick : MonoBehaviour
 
         PlayVisualFX(greenandblueValue);
         if (_currentHealth <= 0) DestroyBrick();
+        else healthTMP.text = _currentHealth.ToString();
     }
 
     private void PlayVisualFX(float greenandblueValue)
     {
         sprite.transform.DOKill();
-        sprite.transform.localScale = Vector3.one * .2f;
+        sprite.transform.localScale = Vector3.one * .45f;
         sprite.transform.localPosition = Vector3.zero;
-        sprite.transform.DOScale(.23f, .05f).SetLoops(2, LoopType.Yoyo);
-        sprite.DOColor(new Color(1, greenandblueValue, greenandblueValue, 1), .1f);
-        sprite.transform.DOPunchPosition(Vector3.one * .1f, .1f, 100);
+        sprite.transform.DOScale(.55f, .1f).SetLoops(2, LoopType.Yoyo);
+        healthTMP.DOKill();
+        healthTMP.color = Color.white;
+        healthTMP.DOColor(Color.red, .1f).SetLoops(2, LoopType.Yoyo);
+        //sprite.transform.DOPunchPosition(Vector3.one * .1f, .1f, 100);
     }
 
     private void DestroyBrick()
