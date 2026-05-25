@@ -43,6 +43,10 @@ public class Ball : MonoBehaviour
     void Bounce(Vector3 n, Vector3 contactPos)
     {
         _direction = Vector3.Reflect(_direction, n);
+
+        if (_direction.y < .1f && _direction.y > 0) _direction.y = .1f;
+        else if (_direction.y > -.1f && _direction.y < 0) _direction.y = -.1f;
+       
         _fxManager.PlayBallImpactPS(contactPos, n);
         _audioManager.PlayImpactAS();
     }
