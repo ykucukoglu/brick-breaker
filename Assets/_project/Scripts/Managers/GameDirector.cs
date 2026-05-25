@@ -10,6 +10,7 @@ public class GameDirector : MonoBehaviour
     public FXManager fxManager;
     public AudioManager audioManager;
     public CoinManager coinManager;
+    public PowerUpManager powerUpManager;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) RestartLevel();
@@ -53,18 +54,22 @@ public class GameDirector : MonoBehaviour
     public void Win()
     {
         PlayerPrefs.SetInt("LevelNo", levelManager.currentLevelNo + 1);
-        levelManager.SetBallDirection(Vector3.zero);
-        levelManager.HideBall();
+        levelManager.SetBallsDirection(Vector3.zero);
+        levelManager.HideBalls();
         uiManager.LevelCompleted();
         coinManager.StopCoinSpawnCoroutine();
+        coinManager.DestroyActiveCoins();
+        powerUpManager.DestroyActivePowerUps();
     }
 
     public void Lose()
     {
         audioManager.PlayFailAS();
-        levelManager.SetBallDirection(Vector3.zero);
-        levelManager.HideBall();
+        levelManager.SetBallsDirection(Vector3.zero);
+        levelManager.HideBalls();
         uiManager.LevelFailed();
         coinManager.StopCoinSpawnCoroutine();
+        coinManager.DestroyActiveCoins();
+        powerUpManager.DestroyActivePowerUps();
     }
 }

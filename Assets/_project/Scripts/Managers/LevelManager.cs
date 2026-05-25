@@ -10,29 +10,31 @@ public class LevelManager : MonoBehaviour
     public Ball ballPrefab;
     public int currentLevelNo;
     private Level _currentLevel;
-    private Ball _currentBall;
+    private List<Ball> _activeBalls = new List<Ball>();
 
     public void RestartLevelManager()
     {
         DeletePreviousLevel();
         CreateNewLevel();
-        DeletePreviousBall();
-        CreateNewBall();
+        DeletePreviousBalls();
+        CreateNewBall(new Vector3(0, -3f, 0));
     }
 
-    private void CreateNewBall()
+    private void CreateNewBall(Vector3 pos)
     {
-        _currentBall = Instantiate(ballPrefab);
-        _currentBall.transform.position = new Vector3(0, -3f, 0);
-        _currentBall.StartBall(this, new Vector3(Random.Range(-1f, 1f), 1, 0));
+        var newBall = Instantiate(ballPrefab);
+        newBall.transform.position = pos;
+        newBall.StartBall(this, new Vector3(Random.Range(-1f, 1f), 1, 0));
+        _activeBalls.Add(newBall);
     }
 
-    private void DeletePreviousBall()
+    private void DeletePreviousBalls()
     {
-        if (_currentBall != null)
+        foreach (var ball in _activeBalls)
         {
-            Destroy(_currentBall.gameObject);
+            Destroy(ball.gameObject);
         }
+        _activeBalls.Clear();
     }
 
     private void CreateNewLevel()
@@ -53,17 +55,38 @@ public class LevelManager : MonoBehaviour
 
     public void LevelCompleted()
     {
-        _currentBall.SetBallDireciton(Vector3.zero);
+        foreach(var ball in _activeBalls)
+        {
+            ball.SetBallDireciton(Vector3.zero);
+        }
         gameDirector.Win();
     }
 
-    public void SetBallDirection(Vector3 dir)
+    public void SetBallsDirection(Vector3 dir)
     {
-        _currentBall.SetBallDireciton(dir);
+        foreach (var ball in _activeBalls)
+        {
+            ball.SetBallDireciton(dir);
+        }
     }
 
-    public void HideBall()
+    public void HideBalls()
     {
-        _currentBall.transform.DOScale(0, .2f).SetEase(Ease.InBack);
+        foreach (var ball in _activeBalls)
+        {
+            ball.transform.DOScale(0, .2f).SetEase(Ease.InBack).OnComplete(() => Destroy(ball.gameObject));
+        }
+        _activeBalls.Clear();
+    }
+
+    public void PowerUpCollected(Vector3 pos)
+    {
+        CreateNewBall(pos);
+    }
+
+    public void BallDestroyed(Ball ball)
+    {
+        _activeBalls.Remove(ball);
+        if (_activeBalls.Count <= 0) gameDirector.Lose();
     }
 }

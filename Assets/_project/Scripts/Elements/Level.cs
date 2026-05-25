@@ -74,7 +74,12 @@ public class Level : MonoBehaviour
         _fxManager.PlayBrickDestroyedParticles(brick.transform.position);
         if (_bricks.Count == 0) _levelManager.LevelCompleted();
         else
-            if (Random.value < .5f) _levelManager.gameDirector.coinManager.CreateCoinPosition(brick.transform.position);
+        {
+            var randomValue = Random.value;
+            if (randomValue < .5f) _levelManager.gameDirector.coinManager.CreateCoinPosition(brick.transform.position);
+            else if(randomValue < .6f) _levelManager.gameDirector.powerUpManager.SpawnPowerUp(brick.transform.position);
+        }
+
     }
 }
 
