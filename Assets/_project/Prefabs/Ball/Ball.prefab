@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ball
   speed: 8
+  playerCollisionXOffetMulplier: 1.5
 --- !u!58 &3942243807259315026
 CircleCollider2D:
   m_ObjectHideFlags: 0

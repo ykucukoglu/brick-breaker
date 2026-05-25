@@ -8,6 +8,8 @@ public class Ball : MonoBehaviour
     private LevelManager _levelManager;
     private FXManager _fxManager;
     private AudioManager _audioManager;
+
+    public float playerCollisionXOffetMulplier;
     public void StartBall(LevelManager levelManager, Vector3 dir)
     {
         _levelManager = levelManager;
@@ -37,16 +39,22 @@ public class Ball : MonoBehaviour
             collision.gameObject.GetComponent<Brick>().GetHit();
             _audioManager.PlayPositiveAS();
         }
-        if (collision.gameObject.CompareTag("Player")) Bounce(collision.contacts[0].normal, collision.contacts[0].point);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            var offset = (transform.position - collision.transform.position).x * playerCollisionXOffetMulplier;
+            Bounce(collision.contacts[0].normal, collision.contacts[0].point, offset);
+        }
     }
 
-    void Bounce(Vector3 n, Vector3 contactPos)
+    void Bounce(Vector3 n, Vector3 contactPos, float offset = 0f)
     {
-        _direction = Vector3.Reflect(_direction, n);
+        var newDir = Vector3.Reflect(_direction, n);
+        if (offset != 0) newDir.x = offset;
+        _direction = newDir;
 
         if (_direction.y < .1f && _direction.y > 0) _direction.y = .1f;
         else if (_direction.y > -.1f && _direction.y < 0) _direction.y = -.1f;
-       
+
         _fxManager.PlayBallImpactPS(contactPos, n);
         _audioManager.PlayImpactAS();
     }
