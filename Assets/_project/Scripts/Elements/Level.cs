@@ -53,6 +53,8 @@ public class Level : MonoBehaviour
     {
         var state = Random.state;
         Random.InitState(_levelManager.currentLevelNo);
+        var didSpawnTough = false;
+
         for (int i = 0; i < brickCount; i++)
         {
             var brickPrefab = basicBrickPrefab;
@@ -60,7 +62,11 @@ public class Level : MonoBehaviour
             var randomValue = Random.value;
 
             if(i > 0 && Random.value < .15f) brickPrefab = indestructableBrickPrefab;
-            else if(i > 0 && randomValue < .25f) brickPrefab = toughBrickPrefab;
+            else if(i > 0 && randomValue < .25f && !didSpawnTough)
+            {
+                brickPrefab = toughBrickPrefab;
+                didSpawnTough = true;
+            }
 
             var newBrick = Instantiate(brickPrefab, transform);
             var xPosRandomizer = Random.Range(-1, 2);
@@ -80,7 +86,7 @@ public class Level : MonoBehaviour
     public void BrickDestroyed(Brick brick)
     {
         _bricks.Remove(brick);
-        _fxManager.PlayBrickDestroyedParticles(brick.transform.position);
+        _fxManager.PlayBrickDestroyed(brick.transform.position);
         if (_bricks.Count == 0) _levelManager.LevelCompleted();
         else
         {

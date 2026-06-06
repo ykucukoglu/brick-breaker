@@ -3,15 +3,23 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     private Player _player;
+    public bool clickToMove;
     private void Start()
     {
         _player = GetComponent<Player>();
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0)) DragStarted();
-        if (Input.GetMouseButton(0)) Dragged();
-        if (Input.GetMouseButtonUp(0)) DragStopped();
+        if (clickToMove){
+            if (Input.GetMouseButtonDown(0)) DragStarted();
+            if (Input.GetMouseButton(0)) Dragged();
+            if (Input.GetMouseButtonUp(0)) DragStopped();
+        }
+        else
+        {
+            Dragged();
+        }
+
     }
 
     void DragStarted()
