@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FXManager : MonoBehaviour
@@ -8,6 +10,9 @@ public class FXManager : MonoBehaviour
     public CameraShake cameraShake;
     public float cameraShakeDuration;
     public float cameraShakeMagnitude;
+
+    public List<Sprite> bgSprites;
+    public SpriteRenderer bgSpriteRenderer;
     public void PlayBrickDestroyed(Vector3 position)
     {
         var newPS = Instantiate(brickDestroyPS);
@@ -31,5 +36,10 @@ public class FXManager : MonoBehaviour
         var newPS = Instantiate(coinCollectPS);
         newPS.transform.position = pos;
         newPS.Play();
+    }
+
+    public void ChangeBackground(int levelNo)
+    {
+        bgSpriteRenderer.sprite = bgSprites[(levelNo - 1) % bgSprites.Count];
     }
 }
