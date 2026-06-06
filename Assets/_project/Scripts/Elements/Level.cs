@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    public Brick brickPrefab;
+    public Brick basicBrickPrefab;
+    public Brick indestructableBrickPrefab;
+    public Brick toughBrickPrefab;
     private List<Brick> _bricks = new List<Brick>();
     private LevelManager _levelManager;
     private FXManager _fxManager;
@@ -53,10 +55,17 @@ public class Level : MonoBehaviour
         Random.InitState(_levelManager.currentLevelNo);
         for (int i = 0; i < brickCount; i++)
         {
+            var brickPrefab = basicBrickPrefab;
+            
+            var randomValue = Random.value;
+
+            if(i > 0 && Random.value < .15f) brickPrefab = indestructableBrickPrefab;
+            else if(i > 0 && randomValue < .25f) brickPrefab = toughBrickPrefab;
+
             var newBrick = Instantiate(brickPrefab, transform);
             var xPosRandomizer = Random.Range(-1, 2);
             newBrick.transform.localPosition = SelectFromAvailableTiles();
-            _bricks.Add(newBrick);
+            if(brickPrefab != indestructableBrickPrefab) _bricks.Add(newBrick);
             newBrick.StartBrick(this, _levelManager);
         }
         Random.state = state;
@@ -80,6 +89,11 @@ public class Level : MonoBehaviour
             else if(randomValue < .6f) _levelManager.gameDirector.powerUpManager.SpawnPowerUp(brick.transform.position);
         }
 
+    }
+
+    public void ToughBrickGotHit(Vector3 position)
+    {
+        _levelManager.gameDirector.powerUpManager.SpawnPowerUp(position);
     }
 }
 

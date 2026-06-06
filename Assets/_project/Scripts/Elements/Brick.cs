@@ -5,7 +5,10 @@ using UnityEngine;
 public class Brick : MonoBehaviour
 {
     private Level _level;
-    public int startHealth;
+
+    public Vector2 startHealthRange;
+
+    private int _startHealth;
     private int _currentHealth;
     private Color _stepValue;
     public SpriteRenderer sprite;
@@ -13,15 +16,18 @@ public class Brick : MonoBehaviour
     private AudioManager _audioManager;
     private IncrementalManager _incrementalManager;
     public TextMeshPro healthTMP;
+    public BrickType brickType;
 
     public void StartBrick(Level level, LevelManager levelManager)
     {
-        startHealth = Random.Range(2, 6);
+        if (brickType == BrickType.Indestructible) return;
+
+        _startHealth = Mathf.RoundToInt(Random.Range(startHealthRange.x, startHealthRange.y));
         var bonusHealt = levelManager.currentLevelNo / 5;
-        startHealth += bonusHealt;
+        _startHealth += bonusHealt;
 
         _level = level;
-        _currentHealth = startHealth;
+        _currentHealth = _startHealth;
         _incrementalManager = levelManager.gameDirector.incrementalManager;
         var greenandblueValue = 1 - _currentHealth * colorStep;
         _audioManager = levelManager.gameDirector.audioManager;
@@ -35,6 +41,7 @@ public class Brick : MonoBehaviour
         var greenandblueValue = 1 - _currentHealth * colorStep;
 
         PlayVisualFX(greenandblueValue);
+        if (brickType == BrickType.Tough) _level.ToughBrickGotHit(transform.position);
         if (_currentHealth <= 0) DestroyBrick();
         else healthTMP.text = _currentHealth.ToString();
     }
@@ -63,4 +70,11 @@ public class Brick : MonoBehaviour
         sprite.transform.DOKill();
         sprite.DOKill();
     }
+}
+
+public enum BrickType
+{
+    Basic,
+    Indestructible,
+    Tough
 }

@@ -50,8 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a8df78da8f3f74489e9874d935c89c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Level
-  brickPrefab: {fileID: 0}
-  tilePrefab: {fileID: 0}
+  basicBrickPrefab: {fileID: 6001118119558179351, guid: a86f5c9f9df538c468b2e1be82bf7c78, type: 3}
+  indestructableBrickPrefab: {fileID: 6001118119558179351, guid: 40ac45f5ddced7947963860a9d60a866, type: 3}
+  tilePrefab: {fileID: -3296034864676730024, guid: 1fde30c91fdaad84f830f13d1f97654d, type: 3}
 --- !u!1001 &1042348492695272481
 PrefabInstance:
   m_ObjectHideFlags: 0
